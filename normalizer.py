@@ -1,37 +1,39 @@
 import json
+import list
+import validator
 
 
-def normalize(path):
-    tweets = __get_tweets__(path)
-    sanitized = sanitize(tweets)
-
-    return 'Normalizing data with path %s' % path
+def create(path):
+    return Normalizer(path)
 
 
-def sanitize(tweets):
-    for tweet in tweets:
-        if not __key_exists__("delete", tweet):
-            continue
-        tweets.remove(tweet)
-    return tweets
+class Normalizer:
+    path: str = ""
+    validator: validator.Validator
 
+    def __init__(self, path: str):
+        self.path = path
+        self.validator = validator.create()
 
-def __key_exists__(key, dictionary):
-    return key in dictionary.keys()
+    def normalize(self) -> list:
+        raw = self.__load_tweets()
+        tweets = self.__extract_tweets(raw)
 
+        return tweets
 
-def __get_tweets__(path):
-    with open(path) as f:
-        tweets_json = f.readlines()
-    tweets_json = __strip_elements__(tweets_json)
+    def __load_tweets(self) -> list:
+        with open(self.path) as f:
+            tweets_json = f.readlines()
+        return list.strip_elements(tweets_json)
 
-    tweets = []
-    for tweet in tweets_json:
-        to_decode = r'%s' % tweet
-        tweets.append(json.loads(to_decode))
+    def __extract_tweets(self, raw: list) -> list:
+        tweets = []
+        for raw_tweet in raw:
+            to_decode = r'%s' % raw_tweet
+            decoded = json.loads(to_decode)
+            if not self.validator.validate(decoded):
+                continue
 
-    return tweets
+            tweets.append(decoded)
 
-
-def __strip_elements__(data):
-    return [x.strip() for x in data]
+        return tweets

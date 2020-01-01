@@ -11,7 +11,7 @@ class Commands(object):
     """Simple strategy for Commands."""
 
     def normalize(self, path=filepath):
-        return normalizer.normalize(path)
+        return normalizer.create(path).normalize()
 
     def plot(self, options=""):
         return plotter.plot()
