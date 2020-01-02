@@ -7,6 +7,7 @@ def create():
     return Extractor()
 
 
+
 class Extractor:
     __validator: validator.Validator
 

@@ -5,7 +5,14 @@ import validator
 class TestValidator(unittest.TestCase):
     def test_validate_valid(self):
         data = {
-            "foo": "bar,"
+            "foo": "bar",
+            "entities": {
+                'hashtags': [
+                    {
+                        'text': 'Donald'
+                    }
+                ]
+            }
         }
 
         self.assertTrue(validator.create().validate(data))
