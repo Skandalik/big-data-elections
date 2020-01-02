@@ -7,7 +7,6 @@ def create():
     return Extractor()
 
 
-
 class Extractor:
     __validator: validator.Validator
 
@@ -18,7 +17,10 @@ class Extractor:
         tweets = []
         for raw_tweet in raw:
             to_decode = r'%s' % raw_tweet
-            decoded = json.loads(to_decode)
+            try:
+                decoded = json.loads(to_decode)
+            except:
+                continue
             if not self.__validator.validate(decoded):
                 continue
 

@@ -21,7 +21,8 @@ class Normalizer:
         self.__loader = loader.create(path)
 
     def normalize(self) -> list:
-        loaded = self.__loader.scan().load()
+        self.__loader.scan()
+        loaded = self.__loader.load()
         normalized = self.__normalize_tweets(loaded)
         self.__saver.save(normalized)
 

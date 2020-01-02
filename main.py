@@ -4,7 +4,7 @@ import fire
 import normalizer
 import plotter
 
-filepath = '%s\\testdata\\tweets.json' % os.getcwd()
+filepath = '%s\\..\\Dane twittera' % os.getcwd()
 
 
 class Commands(object):

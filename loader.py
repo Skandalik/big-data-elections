@@ -21,9 +21,8 @@ class Loader:
         self.__path = path
 
     def scan(self):
-        self.__counter.scan(self.__path).success()
-
-        return self
+        self.__counter.scan(self.__path)
+        self.__counter.success()
 
     def load(self) -> list:
         return self.__load_tweets(self.__path)
@@ -40,15 +39,14 @@ class Loader:
 
     def __load_and_extract(self, path: str) -> list:
         if not path.endswith('.bz2'):
-            return
+            return []
 
         with open(path, 'rb') as source:
-            decompressed = bz2.decompress(source.read()).decode('utf-8')
+            decompressed = bz2.decompress(source.read()).split(b'\n')
             self.count += 1
-            printer.print("Decompressed %s of %s files." % (self.count, self.__counter.total))
 
-        stripped = list.strip_elements(decompressed)
+        stripped = list.decode_elements(decompressed)
         extracted = self.__extractor.extract_tweets(stripped)
-        printer.print("Processed %s JSONs." % len(extracted))
+        printer.print("Decompressed %s of %s files. Processed %s JSONs." % (self.count, self.__counter.total, len(extracted)))
 
         return extracted

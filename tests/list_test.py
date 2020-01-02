@@ -26,7 +26,7 @@ class TestList(unittest.TestCase):
             'test data',
         ]
 
-        result = list.strip_elements(testdata)
+        result = list.decode_elements(testdata)
 
         for data in result:
             self.assertEqual(data, 'test data')
