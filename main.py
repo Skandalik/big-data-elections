@@ -4,17 +4,18 @@ import fire
 import process
 import plotter
 
-filepath = '%s\\..\\Dane twittera' % os.getcwd()
-batch_size = 100
+filepath = '%s\\testdata\\nested' % os.getcwd()
+batch_size = 10
 
 class Commands(object):
-    """Simple strategy for Commands."""
+    """Commands."""
 
-    def process(self, path=filepath):
+    def process(self, path=filepath, batch=batch_size):
         processor = process.create(path)
         processor.scan()
-        processor.process(batch_size)
+        processor.process(batch)
 
+    # TODO: do plotting
     def plot(self, options=""):
         return plotter.plot()
 
