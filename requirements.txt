@@ -1,2 +1,5 @@
 python-dateutil
 fire
+jsons
+redis
+datetime
