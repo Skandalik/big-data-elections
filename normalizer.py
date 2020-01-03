@@ -13,6 +13,7 @@ class Normalizer:
     def __normalize_tweets(self, loaded: list) -> list:
         normalized = []
         for single_tweet in loaded:
+            id = single_tweet['id']
             favorite_count = single_tweet['favorite_count']
             retweet_count = single_tweet['retweet_count']
             language = single_tweet['lang']
@@ -23,6 +24,7 @@ class Normalizer:
             tags = single_tweet['entities']['hashtags']
 
             normalized_tweet = tweet.Tweet(
+                id,
                 retweet_count,
                 favorite_count,
                 country,

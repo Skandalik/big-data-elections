@@ -1,13 +1,17 @@
 import os
 
 import jsons
+import redis
+
+file_saver = 'file'
+redis_saver = 'redis'
 
 
-def create(path: str, filename: str):
-    return Saver(path, filename)
+def create_file_saver(path: str, filename: str):
+    return FileSaver(path, filename)
 
 
-class Saver:
+class FileSaver:
     __filepath: str
     __extension: str = '.json'
     __count = 0
@@ -29,3 +33,19 @@ class Saver:
 
     def __get_custom_filepath(self) -> str:
         return '%s_%d%s' % (self.__filepath, self.count, self.__extension)
+
+
+def create_redis_saver(host: str, port: int):
+    return RedisSaver(host, port)
+
+
+class RedisSaver:
+    __tweets: str = 'tweets'
+    __redis: redis.Redis
+
+    def __init__(self, host: str, port: int):
+        self.__redis = redis.Redis(host=host, port=port)
+
+    def save(self, tweets: list):
+        for tweet in tweets:
+            self.__redis.hset(self.__tweets, tweet.get_id(), jsons.dumps(tweet))
