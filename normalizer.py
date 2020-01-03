@@ -1,32 +1,14 @@
 import list
-import os
-import loader
-import saver
 import tweet
 
 
-def create(path):
-    return Normalizer(path)
+def create():
+    return Normalizer()
 
 
 class Normalizer:
-    __loader: loader.Loader
-    __saver: saver.Saver
-
-    def __init__(self, path: str):
-        save_path = '%s\\normalized_data' % os.getcwd()
-        save_name = 'normalized_tweets'
-
-        self.__saver = saver.create(save_path, save_name)
-        self.__loader = loader.create(path)
-
-    def normalize(self) -> list:
-        self.__loader.scan()
-        loaded = self.__loader.load()
-        normalized = self.__normalize_tweets(loaded)
-        self.__saver.save(normalized)
-
-        return normalized
+    def normalize(self, loaded: list) -> list:
+        return self.__normalize_tweets(loaded)
 
     def __normalize_tweets(self, loaded: list) -> list:
         normalized = []

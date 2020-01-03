@@ -7,13 +7,13 @@ class TestNormalizer(unittest.TestCase):
     def test_normalize(self):
         filepath = '%s\\..\\testdata\\tweets.json' % os.getcwd()
 
-        normalized = normalizer.create(filepath).normalize()
+        normalized = normalizer.create(filepath).process()
         self.assertEqual(len(normalized), 7)
 
     def test_normalize_nested(self):
         filepath = '%s\\..\\testdata\\nested' % os.getcwd()
 
-        normalized = normalizer.create(filepath).normalize()
+        normalized = normalizer.create(filepath).process()
         self.assertEqual(len(normalized), 73)
 
 
