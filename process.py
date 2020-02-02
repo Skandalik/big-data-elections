@@ -19,16 +19,20 @@ class Processor:
     __counter: counter.Counter
     __extractor: extractor.Extractor
     __normalizer: normalizer.Normalizer
-    __saver: saver.RedisSaver
+    # __saver: saver.RedisSaver
+    __saver: saver.FileSaver
 
     __batch: int
     __path: str
 
     def __init__(self, path: str):
+        save_path = '%s\\normalized_data' % os.getcwd()
+        save_name = 'normalized_tweets'
         self.__counter = counter.create()
         self.__extractor = extractor.create()
         self.__normalizer = normalizer.create()
-        self.__saver = saver.create_redis_saver('localhost', 6379)
+        # self.__saver = saver.create_redis_saver('localhost', 6379)
+        self.__saver = saver.create_file_saver(save_path, save_name)
         self.__path = path
 
     def scan(self):

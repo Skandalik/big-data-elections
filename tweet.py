@@ -12,6 +12,7 @@ class Tweet:
     __language: str
     __created_at: datetime.datetime
     __hashtags = []
+    __text = []
 
     def __init__(self,
                  id: int,
@@ -22,7 +23,8 @@ class Tweet:
                  timezone: str,
                  language: str,
                  created_at: str,
-                 hashtags: list
+                 hashtags: list,
+                 text: str
                  ):
         self.__id = id
         self.__retweet_count = retweet_count
@@ -33,6 +35,7 @@ class Tweet:
         self.__language = language
         self.__created_at = dateutil.parser.parse(created_at)
         self.__hashtags = self.__extract_hashtags(hashtags)
+        self.__text = text
 
     def get_id(self) -> int:
         return self.__id

@@ -20,6 +20,8 @@ class Candidate:
             '%s%s' % (self.__name, self.__surname),
             'votefor%s' % self.__surname,
             'votefor%s%s' % (self.__name, self.__surname),
+            'election',
+            'elections',
         ]
 
 

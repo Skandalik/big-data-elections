@@ -5,7 +5,7 @@ import process
 import plotter
 
 filepath = '%s\\testdata\\nested' % os.getcwd()
-batch_size = 10
+batch_size = 1000
 
 class Commands(object):
     """Commands."""
