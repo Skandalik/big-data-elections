@@ -2,10 +2,10 @@ import os
 
 import fire
 import process
-import plotter
+import plot
 
 filepath = '%s\\testdata\\nested' % os.getcwd()
-batch_size = 1000
+batch_size = 10
 
 class Commands(object):
     """Commands."""
@@ -15,9 +15,9 @@ class Commands(object):
         processor.scan()
         processor.process(batch)
 
-    # TODO: do plotting
-    def plot(self, options=""):
-        return plotter.plot()
+    def plot(self):
+        plotter = plot.create()
+        plotter.plot()
 
 
 if __name__ == '__main__':

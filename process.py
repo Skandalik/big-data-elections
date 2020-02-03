@@ -1,12 +1,12 @@
 import bz2
 import os
 
+import connector
 import counter
 import extractor
 import list
 import normalizer
 import printer
-import saver
 
 
 def create(path: str):
@@ -19,20 +19,16 @@ class Processor:
     __counter: counter.Counter
     __extractor: extractor.Extractor
     __normalizer: normalizer.Normalizer
-    __saver: saver.RedisSaver
-    # __saver: saver.FileSaver
+    __redis: connector.Redis
 
     __batch: int
     __path: str
 
     def __init__(self, path: str):
-        save_path = '%s\\normalized_data' % os.getcwd()
-        save_name = 'normalized_tweets'
         self.__counter = counter.create()
         self.__extractor = extractor.create()
         self.__normalizer = normalizer.create()
-        self.__saver = saver.create_redis_saver('localhost', 6379)
-        # self.__saver = saver.create_file_saver(save_path, save_name)
+        self.__redis = connector.create('localhost', 6379)
         self.__path = path
 
     def scan(self):
@@ -55,7 +51,7 @@ class Processor:
                 continue
 
             normalized = self.__normalizer.normalize(tweets)
-            self.__saver.save(normalized)
+            self.__redis.save(normalized)
             tweets = []
 
         return tweets

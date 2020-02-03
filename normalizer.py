@@ -1,4 +1,5 @@
 import list
+
 import tweet
 
 
@@ -24,7 +25,7 @@ class Normalizer:
             tags = single_tweet['entities']['hashtags']
             text = single_tweet['text']
 
-            normalized_tweet = tweet.Tweet(
+            normalized_tweet = tweet.create(
                 id,
                 retweet_count,
                 favorite_count,
@@ -39,7 +40,11 @@ class Normalizer:
             normalized.append(normalized_tweet)
 
         return normalized
+
     def __extract_country(self, object) -> str:
         if object is None:
             return "none"
-        return object['country_code']
+        if object is dict:
+            return object['country_code']
+        return "none"
+
