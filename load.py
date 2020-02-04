@@ -1,4 +1,4 @@
-import pandas
+import pandas as pd
 
 import connector
 import tweet
@@ -21,4 +21,7 @@ class Loader:
             loaded = tweet.Tweet().from_json(json_tweet)
             tweets.append(loaded)
 
-        return pandas.DataFrame([t.as_dict() for t in tweets])
+        df = pd.DataFrame([t.as_dict() for t in tweets])
+        df['created_at'] = pd.to_datetime(df['created_at'])
+
+        return df

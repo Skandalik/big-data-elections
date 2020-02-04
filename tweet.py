@@ -69,7 +69,7 @@ class Tweet:
             'user_timezone': self.timezone,
             'language': self.language,
             'created_at': self.created_at,
-            'hashtags': self.hashtags,
+            'hashtags': ' '.join(self.hashtags),
             'text': self.text,
         }
 

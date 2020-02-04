@@ -18,7 +18,7 @@ class Normalizer:
             favorite_count = single_tweet['favorite_count']
             retweet_count = single_tweet['retweet_count']
             language = single_tweet['lang']
-            country = self.__extract_country(single_tweet['geo'])
+            country = self.__extract_country(single_tweet['place'])
             user_loc = single_tweet['user']['location'] or "none"
             timezone = single_tweet['user']['time_zone'] or "none"
             created_at = single_tweet['created_at']
@@ -47,4 +47,3 @@ class Normalizer:
         if object is dict:
             return object['country_code']
         return "none"
-
